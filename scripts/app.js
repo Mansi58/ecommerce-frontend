@@ -6,7 +6,6 @@ if (!isLoggedIn && !window.location.pathname.includes("auth.html")) {
   window.location.href = "auth.html";
 }
 
-
 console.log("App JS loaded");
 
 // ===== Cart helpers =====
@@ -41,18 +40,20 @@ const productsGrid = document.getElementById("productsGrid");
 const loadingText = document.getElementById("loadingText");
 const errorText = document.getElementById("errorText");
 
-fetch("https://fakestoreapi.com/products")
-  .then((res) => res.json())
-  .then((products) => {
-    console.log("Products loaded:", products); // debug
-    if (loadingText) loadingText.style.display = "none";
-    displayProducts(products);
-  })
-  .catch((err) => {
-    console.error("API error:", err);
-    if (loadingText) loadingText.style.display = "none";
-    if (errorText) errorText.style.display = "block";
-  });
+if (productsGrid) {
+  fetch("https://fakestoreapi.com/products")
+    .then((res) => res.json())
+    .then((products) => {
+      console.log("Products loaded:", products);
+      if (loadingText) loadingText.style.display = "none";
+      displayProducts(products);
+    })
+    .catch((err) => {
+      console.error("API error:", err);
+      if (loadingText) loadingText.style.display = "none";
+      if (errorText) errorText.style.display = "block";
+    });
+}
 
 function displayProducts(products) {
   if (!productsGrid) return;
@@ -105,3 +106,4 @@ function displayProducts(products) {
     productsGrid.appendChild(card);
   });
 }
+
