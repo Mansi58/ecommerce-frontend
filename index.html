@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Frontend</title>
-    <link rel="stylesheet" href="styles/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEasy</title>
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Online Store</h1>
-    </header>
 
-    <script src="scripts/app.js"></script>
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="logo">ShopEasy</div>
+
+    <nav class="nav" id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="#products">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" placeholder="Search products..." />
+      </div>
+
+      <!-- ✅ Cart icon now links to cart.html -->
+      <a href="cart.html" class="cart-link">
+        <div class="cart">
+          🛒 <span class="cart-badge">0</span>
+        </div>
+      </a>
+
+      <div class="hamburger" id="hamburger">☰</div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Biggest Sale of the Year 🔥</h1>
+      <p>Discover amazing deals on top products.</p>
+      <button class="hero-btn">Shop Now</button>
+    </div>
+  </section>
+
+  <!-- ===== Products ===== -->
+  <section class="products-section" id="products">
+    <h2 class="section-title">Featured Products</h2>
+    <p id="loadingText" style="text-align:center;">Loading products...</p>
+    <p id="errorText" style="text-align:center;color:red;display:none;">Failed to load products</p>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <script src="scripts/app.js"></script>
+
 </body>
 </html>

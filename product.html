@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details - ShopEasy</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="logo">ShopEasy</div>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#products">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="cart">
+        🛒 <span class="cart-badge">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Product Detail ===== -->
+ <!-- ===== Product Detail ===== -->
+<section class="product-detail-section">
+  <p id="loadingText">Loading product...</p>
+  <p id="errorText" style="display:none;color:red;">Failed to load product</p>
+
+  <div class="product-detail" id="productDetail"></div>
+</section>
+
+<script src="scripts/product.js"></script>
+
+</body>
+</html>
