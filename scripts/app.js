@@ -1,14 +1,24 @@
-// ===== Auth Guard =====
-const isLoggedIn = localStorage.getItem("isLoggedIn");
+// =====================
+// AUTH GUARD (RUN FIRST)
+// =====================
+(function () {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-// If not logged in and not already on auth page → redirect
-if (!isLoggedIn && !window.location.pathname.includes("auth.html")) {
-  window.location.href = "auth.html";
-}
+  // Detect GitHub Pages subfolder
+  const isGitHubPages = window.location.pathname.includes("ecommerce-frontend");
+  const basePath = isGitHubPages ? "/ecommerce-frontend/" : "/";
 
-console.log("App JS loaded");
+  const isOnAuthPage = window.location.pathname.includes("auth.html");
 
-// ===== Cart helpers =====
+  if (!isLoggedIn && !isOnAuthPage) {
+    window.location.replace(basePath + "auth.html");
+    return; // STOP executing rest of file
+  }
+})();
+
+// =====================
+// CART HELPERS
+// =====================
 function getCart() {
   return JSON.parse(localStorage.getItem("cart")) || [];
 }
@@ -25,9 +35,12 @@ function updateCartBadge() {
   badge.textContent = totalQty;
 }
 
+// Init badge
 updateCartBadge();
 
-// ===== Hero button =====
+// =====================
+// HERO BUTTON
+// =====================
 const heroBtn = document.querySelector(".hero-btn");
 if (heroBtn) {
   heroBtn.addEventListener("click", () => {
@@ -35,14 +48,19 @@ if (heroBtn) {
   });
 }
 
-// ===== Products =====
+// =====================
+// PRODUCTS LOADING
+// =====================
 const productsGrid = document.getElementById("productsGrid");
 const loadingText = document.getElementById("loadingText");
 const errorText = document.getElementById("errorText");
 
 if (productsGrid) {
   fetch("https://fakestoreapi.com/products")
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch products");
+      return res.json();
+    })
     .then((products) => {
       console.log("Products loaded:", products);
       if (loadingText) loadingText.style.display = "none";
@@ -68,7 +86,7 @@ function displayProducts(products) {
 
     card.innerHTML = `
       <a href="product.html?id=${product.id}" style="text-decoration:none;color:white;">
-        <img src="${product.image}" alt="${product.title}">
+        <img src="${product.image}" alt="${product.title}" loading="lazy">
         <h4>${product.title}</h4>
         <p>₹ ${price}</p>
       </a>
@@ -81,7 +99,6 @@ function displayProducts(products) {
       e.stopPropagation();
 
       const cart = getCart();
-
       const existing = cart.find((i) => i.id === product.id);
 
       if (existing) {
@@ -106,4 +123,3 @@ function displayProducts(products) {
     productsGrid.appendChild(card);
   });
 }
-
