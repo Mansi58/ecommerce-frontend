@@ -1,10 +1,11 @@
 // ===== Auth Guard =====
 const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-if (!isLoggedIn) {
-  // Not logged in → send to login page
+// If not logged in and not already on auth page → redirect
+if (!isLoggedIn && !window.location.pathname.includes("auth.html")) {
   window.location.href = "auth.html";
 }
+
 
 console.log("App JS loaded");
 
